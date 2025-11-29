@@ -21,10 +21,14 @@ function formatPrice(price: number): string {
 }
 
 /**
- * Validates if a string is a valid URL for images.
+ * Validates if a string is a valid URL or path for images.
+ * Accepts absolute URLs (http/https) or relative paths starting with "/".
  */
 function isValidImageUrl(url: string | undefined): boolean {
   if (!url) return false;
+  // Accept relative paths starting with "/"
+  if (url.startsWith("/")) return true;
+  // Accept absolute URLs
   try {
     const parsed = new URL(url);
     return parsed.protocol === "http:" || parsed.protocol === "https:";

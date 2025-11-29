@@ -12,7 +12,7 @@
       "price": 1367999,
       "currency_id": "ARS",
       "condition": "new",
-      "thumbnail": "...",
+      "thumbnail": "/products/iphone-13.webp",
       "installments": {
         "quantity": 12,
         "amount": 113999.92
@@ -31,7 +31,7 @@
       "price": 2299000,
       "currency_id": "ARS",
       "condition": "new",
-      "thumbnail": "...",
+      "thumbnail": "/products/iphone-16-pro-max.webp",
       "shipping": {
         "free_shipping": true
       },
@@ -46,7 +46,7 @@
       "price": 412500,
       "currency_id": "ARS",
       "condition": "used",
-      "thumbnail": "...",
+      "thumbnail": "/products/iphone-8-plata.webp",
       "reviews": {
         "rating_average": 5.0,
         "total": 2
@@ -58,7 +58,7 @@
       "price": 1599999,
       "currency_id": "ARS",
       "condition": "new",
-      "thumbnail": "...",
+      "thumbnail": "/products/iphone-14-plus-azul.webp",
       "installments": {
         "quantity": 6,
         "amount": 283333.17
@@ -77,7 +77,7 @@
       "price": 799999,
       "currency_id": "ARS",
       "condition": "new",
-      "thumbnail": "...",
+      "thumbnail": "/products/iphone-se.webp",
       "shipping": {
         "free_shipping": true
       }
@@ -88,7 +88,7 @@
       "price": 689999,
       "currency_id": "ARS",
       "condition": "used",
-      "thumbnail": "...",
+      "thumbnail": "/products/iphone-11.webp",
       "reviews": {
         "rating_average": 4.5,
         "total": 9
