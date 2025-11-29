@@ -67,14 +67,24 @@ Simplified structure:
 
 ```txt
 src/
-  domain/           # Business entities, repository interfaces, value objects
-  application/      # Use cases (orchestrate domain logic)
-  infrastructure/   # Concrete implementations: repos, mock data, AI services, etc.
+  modules/          # Feature modules (each module is self-contained)
+    <module-name>/  # e.g., products, search, cart, etc.
+      domain/       # Business entities, repository interfaces, value objects
+      application/  # Use cases (orchestrate domain logic)
+      infrastructure/ # Concrete implementations: repos, mock data, etc.
+  shared/           # Shared domain entities, utilities, types
+    domain/         # Cross-module domain concepts
+    infrastructure/ # Shared infrastructure (AI services, common adapters)
   app/              # Presentation layer (Next.js) + API routes that act as BFF
+    api/            # BFF endpoints (orchestrate module use cases)
+    (routes)/       # Next.js pages and UI components
 
 tests/
-  unit/             # Unit tests for use cases and domain logic
-  components/       # React component tests
+  modules/          # Tests organized by module
+    <module-name>/
+      unit/         # Unit tests for use cases and domain logic
+      integration/  # Integration tests
+  components/           # React component tests
   acceptance/
     features/       # Acceptance scenarios in Gherkin format (ATDD)
   setup/            # Test runner configuration
@@ -131,8 +141,8 @@ docs/
 2. Review `docs/architecture.md` to understand the layer separation and the BFF role.
 3. Check `docs/domain-model.md` to see the main entities.
 4. Take a look at:
-   - `src/domain/entities/Product.ts`
-   - `src/application/use-cases/searchProducts.ts`
+   - `src/modules/products/domain/entities/Product.ts`
+   - `src/modules/products/application/use-cases/searchProducts.ts`
    - `src/app/api/products/route.ts`
    - `src/app/page.tsx` (main search view).
 
