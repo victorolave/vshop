@@ -3,6 +3,62 @@ import "@testing-library/jest-dom";
 import type { Product } from "@/modules/catalog/domain/entities/Product";
 import { SearchView } from "@/modules/catalog/ui/components/SearchView";
 
+// Mock Next.js navigation hooks
+const mockPush = jest.fn();
+const mockGet = jest.fn();
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+  useSearchParams: () => ({
+    get: mockGet,
+  }),
+}));
+
+// Mock Next.js Image
+jest.mock("next/image", () => ({
+  __esModule: true,
+  default: ({
+    fill,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boolean }) => {
+    // Remove fill prop as it's not a valid HTML attribute
+    // biome-ignore lint/a11y/useAltText: Test mock - alt is passed via props spread
+    // biome-ignore lint/performance/noImgElement: Test mock for Next.js Image component
+    return <img {...props} />;
+  },
+}));
+
+// Mock Next.js Link
+jest.mock("next/link", () => ({
+  __esModule: true,
+  default: ({
+    children,
+    href,
+    ...props
+  }: React.PropsWithChildren<{ href: string } & Record<string, unknown>>) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
+// Mock framer-motion
+jest.mock("framer-motion", () => ({
+  motion: {
+    div: ({
+      children,
+      layoutId,
+      ...props
+    }: React.PropsWithChildren<
+      Record<string, unknown> & { layoutId?: string }
+    >) => {
+      // Remove layoutId as it's not a valid HTML attribute
+      return <div {...props}>{children}</div>;
+    },
+  },
+}));
+
 // Mock products for testing
 const mockProducts: Product[] = [
   {
@@ -44,6 +100,8 @@ describe("<SearchView />", () => {
     jest.clearAllMocks();
     mockStatus = "idle";
     mockProductsData = [];
+    mockGet.mockReturnValue(null);
+    mockPush.mockClear();
   });
 
   describe("Search Input", () => {

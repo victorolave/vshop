@@ -3,6 +3,58 @@ import "@testing-library/jest-dom";
 import type { Product } from "@/modules/catalog/domain/entities/Product";
 import { ProductCard } from "@/modules/catalog/ui/components/ProductCard";
 
+// Mock useSearchParams
+const mockGet = jest.fn();
+jest.mock("next/navigation", () => ({
+  useSearchParams: () => ({
+    get: mockGet,
+  }),
+}));
+
+// Mock framer-motion
+jest.mock("framer-motion", () => ({
+  motion: {
+    div: ({
+      children,
+      layoutId,
+      ...props
+    }: React.PropsWithChildren<
+      Record<string, unknown> & { layoutId?: string }
+    >) => {
+      // Remove layoutId as it's not a valid HTML attribute
+      return <div {...props}>{children}</div>;
+    },
+  },
+}));
+
+// Mock Next.js Image
+jest.mock("next/image", () => ({
+  __esModule: true,
+  default: ({
+    fill,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boolean }) => {
+    // Remove fill prop as it's not a valid HTML attribute
+    // biome-ignore lint/a11y/useAltText: Test mock - alt is passed via props spread
+    // biome-ignore lint/performance/noImgElement: Test mock for Next.js Image component
+    return <img {...props} />;
+  },
+}));
+
+// Mock Next.js Link
+jest.mock("next/link", () => ({
+  __esModule: true,
+  default: ({
+    children,
+    href,
+    ...props
+  }: React.PropsWithChildren<{ href: string } & Record<string, unknown>>) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
 const baseProduct: Product = {
   id: "MLA123",
   title: "Apple iPhone 13 (128 GB) - Medianoche",
@@ -12,6 +64,10 @@ const baseProduct: Product = {
 };
 
 describe("<ProductCard />", () => {
+  beforeEach(() => {
+    mockGet.mockReturnValue(null);
+  });
+
   it("renders product title and price", () => {
     render(<ProductCard product={baseProduct} />);
 
@@ -28,10 +84,8 @@ describe("<ProductCard />", () => {
     render(<ProductCard product={productWithImage} />);
 
     const img = screen.getByRole("img", { name: productWithImage.title });
-    // Next.js Image transforms the src, so we check it contains the original URL
-    expect(img.getAttribute("src")).toContain(
-      encodeURIComponent(productWithImage.thumbnailUrl),
-    );
+    // With our mock, the src is passed directly without encoding
+    expect(img.getAttribute("src")).toBe(productWithImage.thumbnailUrl);
   });
 
   it("does not render image when thumbnailUrl is absent", () => {

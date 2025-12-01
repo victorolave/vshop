@@ -55,3 +55,65 @@ The full schema is defined in `specs/001-catalog-search/contracts/products.opena
 - `500 Internal Server Error` – Internal failures or intentionally forced error (e.g., when using the special testing query described in the catalog search spec).
 
 
+## `GET /api/products/:id`
+
+**Purpose**: Retrieve detailed information for a specific product by its unique ID.
+
+- **Method**: `GET`
+- **Path**: `/api/products/[id]`
+- **Path parameters**:
+  - `id` (string, required): Unique identifier of the product (e.g., `MLA123456789`).
+
+### Successful response – `200 OK`
+
+```json
+{
+  "id": "MLA123456789",
+  "title": "Apple iPhone 13 (128 GB) - Medianoche",
+  "price": 1367999,
+  "original_price": 1499999,
+  "currency_id": "ARS",
+  "condition": "new",
+  "thumbnail": "...",
+  "pictures": [
+    { "id": "1", "url": "..." },
+    { "id": "2", "url": "..." }
+  ],
+  "installments": {
+    "quantity": 12,
+    "amount": 113999.92,
+    "rate": 0,
+    "currency_id": "ARS"
+  },
+  "shipping": {
+    "free_shipping": true,
+    "mode": "me2",
+    "logistic_type": "fulfillment",
+    "store_pick_up": false
+  },
+  "attributes": [
+    { "id": "BRAND", "name": "Marca", "value_name": "Apple" },
+    { "id": "MODEL", "name": "Modelo", "value_name": "iPhone 13" }
+  ],
+  "description": {
+    "plain_text": "Product description text..."
+  },
+  "seller_address": {
+    "city": { "name": "Buenos Aires" },
+    "state": { "name": "Capital Federal" }
+  },
+  "warranty": "Garantía del vendedor: 12 meses",
+  "reviews": {
+    "rating_average": 4.9,
+    "total": 35
+  }
+}
+```
+
+The full schema is defined in `specs/002-product-detail/contracts/product-detail.openapi.json`.
+
+### Error responses
+
+- `400 Bad Request` – Invalid ID format (e.g., missing).
+- `404 Not Found` – Product with the specified ID does not exist.
+- `500 Internal Server Error` – Internal failures or intentionally forced error (when `id` is "error").
