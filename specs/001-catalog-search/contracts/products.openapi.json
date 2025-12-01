@@ -1,0 +1,173 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VShop Catalog Search API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/products": {
+      "get": {
+        "summary": "Search products by text query",
+        "description": "Returns a list of products matching the provided query using mock catalog data.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 0
+            },
+            "description": "Free-text search term. Empty or whitespace-only queries result in an empty list without performing a backend search."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input (e.g., malformed query)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error or forced error for testing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Paging": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": ["total", "offset", "limit"]
+      },
+      "ProductResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "currency_id": {
+            "type": "string"
+          },
+          "condition": {
+            "type": "string",
+            "description": "Product condition (e.g., new, used)"
+          },
+          "thumbnail": {
+            "type": "string",
+            "description": "URL or path to a thumbnail image"
+          },
+          "installments": {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "amount": {
+                "type": "number"
+              }
+            },
+            "required": ["quantity", "amount"]
+          },
+          "shipping": {
+            "type": "object",
+            "properties": {
+              "free_shipping": {
+                "type": "boolean"
+              }
+            },
+            "required": ["free_shipping"]
+          },
+          "reviews": {
+            "type": "object",
+            "properties": {
+              "rating_average": {
+                "type": "number"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": ["rating_average", "total"]
+          }
+        },
+        "required": ["id", "title", "price", "condition"]
+      },
+      "ProductSearchResponse": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "paging": {
+            "$ref": "#/components/schemas/Paging"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductResult"
+            }
+          }
+        },
+        "required": ["query", "paging", "results"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": ["code", "message"]
+          }
+        },
+        "required": ["error"]
+      }
+    }
+  }
+}

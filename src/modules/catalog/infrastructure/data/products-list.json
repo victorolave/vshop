@@ -1,0 +1,98 @@
+{
+  "query": "iphone",
+  "paging": {
+    "total": 1500,
+    "offset": 0,
+    "limit": 6
+  },
+  "results": [
+    {
+      "id": "MLA123456789",
+      "title": "Apple iPhone 13 (128 GB) - Medianoche",
+      "price": 1367999,
+      "currency_id": "ARS",
+      "condition": "new",
+      "thumbnail": "/products/iphone-13.webp",
+      "installments": {
+        "quantity": 12,
+        "amount": 113999.92
+      },
+      "shipping": {
+        "free_shipping": true
+      },
+      "reviews": {
+        "rating_average": 4.9,
+        "total": 35
+      }
+    },
+    {
+      "id": "MLA987654321",
+      "title": "Apple iPhone 16 Pro Max 256gb",
+      "price": 2299000,
+      "currency_id": "ARS",
+      "condition": "new",
+      "thumbnail": "/products/iphone-16-pro-max.webp",
+      "shipping": {
+        "free_shipping": true
+      },
+      "reviews": {
+        "rating_average": 5.0,
+        "total": 12
+      }
+    },
+    {
+      "id": "MLA555555555",
+      "title": "iPhone 8 64 GB Plata - Reacondicionado",
+      "price": 412500,
+      "currency_id": "ARS",
+      "condition": "used",
+      "thumbnail": "/products/iphone-8-plata.webp",
+      "reviews": {
+        "rating_average": 5.0,
+        "total": 2
+      }
+    },
+    {
+      "id": "MLA222222222",
+      "title": "Apple iPhone 14 Plus 128 GB Azul",
+      "price": 1599999,
+      "currency_id": "ARS",
+      "condition": "new",
+      "thumbnail": "/products/iphone-14-plus-azul.webp",
+      "installments": {
+        "quantity": 6,
+        "amount": 283333.17
+      },
+      "shipping": {
+        "free_shipping": false
+      },
+      "reviews": {
+        "rating_average": 4.7,
+        "total": 18
+      }
+    },
+    {
+      "id": "MLA333333333",
+      "title": "Apple iPhone SE (3ra generación) 64 GB Rojo",
+      "price": 799999,
+      "currency_id": "ARS",
+      "condition": "new",
+      "thumbnail": "/products/iphone-se.webp",
+      "shipping": {
+        "free_shipping": true
+      }
+    },
+    {
+      "id": "MLA444444444",
+      "title": "iPhone 11 128 GB Negro - Usado",
+      "price": 689999,
+      "currency_id": "ARS",
+      "condition": "used",
+      "thumbnail": "/products/iphone-11.webp",
+      "reviews": {
+        "rating_average": 4.5,
+        "total": 9
+      }
+    }
+  ]
+}
