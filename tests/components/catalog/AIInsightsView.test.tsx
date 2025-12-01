@@ -21,6 +21,7 @@ jest.mock("framer-motion", () => ({
     ),
   },
   AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+  useReducedMotion: () => false,
 }));
 
 describe("AIInsightsView", () => {
