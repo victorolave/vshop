@@ -2,13 +2,22 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Product } from "@/modules/catalog/domain/entities/Product";
+import type { ProductInsights } from "@/modules/catalog/domain/entities/ProductInsights";
 
 interface UseProductDetailResult {
   product: Product | null;
+  aiInsights: ProductInsights | null;
   isLoading: boolean;
   error: string | null;
   notFound: boolean;
   refetch: () => void;
+}
+
+interface ApiProductInsights {
+  summary: string;
+  pros: string[];
+  cons: string[];
+  recommended_for?: string[];
 }
 
 interface ApiProduct {
@@ -50,6 +59,7 @@ interface ApiProduct {
     rating_average: number;
     total: number;
   };
+  ai_insights?: ApiProductInsights | null;
 }
 
 function mapApiProductToDomain(api: ApiProduct): Product {
@@ -109,23 +119,35 @@ function mapApiProductToDomain(api: ApiProduct): Product {
   };
 }
 
+function mapApiInsightsToDomain(
+  api: ApiProductInsights | null | undefined,
+): ProductInsights | null {
+  if (!api) return null;
+  return {
+    summary: api.summary,
+    pros: api.pros,
+    cons: api.cons,
+    recommendedFor: api.recommended_for,
+  };
+}
+
 export function useProductDetail(
   productId: string | null,
 ): UseProductDetailResult {
   const [product, setProduct] = useState<Product | null>(null);
+  const [aiInsights, setAiInsights] = useState<ProductInsights | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notFound, setNotFound] = useState(false);
 
   const fetchProduct = useCallback(async () => {
-    if (!productId) {
-      return;
-    }
+    if (!productId) return;
 
     setIsLoading(true);
     setError(null);
     setNotFound(false);
     setProduct(null);
+    setAiInsights(null);
 
     try {
       const response = await fetch(`/api/products/${productId}`);
@@ -144,6 +166,7 @@ export function useProductDetail(
 
       const data: ApiProduct = await response.json();
       setProduct(mapApiProductToDomain(data));
+      setAiInsights(mapApiInsightsToDomain(data.ai_insights));
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -157,6 +180,7 @@ export function useProductDetail(
 
   return {
     product,
+    aiInsights,
     isLoading,
     error,
     notFound,
