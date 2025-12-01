@@ -107,8 +107,17 @@ The full schema is defined in `specs/001-catalog-search/contracts/products.opena
     "rating_average": 4.9,
     "total": 35
   }
+  ,
+  "ai_insights": {
+    "summary": "The iPhone 13 is a premium smartphone with excellent camera and battery life.",
+    "pros": ["Great camera", "Long battery life", "High-quality display"],
+    "cons": ["Higher price point", "No expandable storage"],
+    "recommendedFor": ["Photography enthusiasts", "Power users"]
+  }
 }
 ```
+
+The response now includes the optional `ai_insights` object (null when AI is unavailable). Clients should silently ignore the field and only show AI Insights UI when it is populated.
 
 The full schema is defined in `specs/002-product-detail/contracts/product-detail.openapi.json`.
 

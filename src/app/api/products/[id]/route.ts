@@ -1,15 +1,23 @@
 import { NextResponse } from "next/server";
 import { GetProductDetail } from "@/modules/catalog/application/use-cases/GetProductDetail";
+import { createProductInsightsInput } from "@/modules/catalog/infrastructure/ai/attributeExtractor";
+import { ProductInsightsService } from "@/modules/catalog/infrastructure/ai/ProductInsightsService";
 import { MockProductRepository } from "@/modules/catalog/infrastructure/repositories/MockProductRepository";
+import {
+  getClientIP,
+  getGlobalRateLimiter,
+} from "@/modules/shared/infrastructure/ai/rateLimiter";
 
 const getProductDetailUseCase = new GetProductDetail(
   new MockProductRepository(),
 );
+const productInsightsService = new ProductInsightsService();
+const rateLimiter = getGlobalRateLimiter();
 
 const DETAIL_LATENCY_MS = 300;
 
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
@@ -47,7 +55,16 @@ export async function GET(
       );
     }
 
-    // Map domain entity to API response (snake_case for API consistency)
+    // Generate AI insights (with rate limiting)
+    let aiInsights = null;
+    const clientIP = getClientIP(request);
+
+    if (rateLimiter.isAllowed(clientIP)) {
+      const insightsInput = createProductInsightsInput(product);
+      aiInsights = await productInsightsService.generate(insightsInput);
+    }
+
+    // Map domain entity to API response
     const responseBody = {
       id: product.id,
       title: product.title,
@@ -100,6 +117,7 @@ export async function GET(
             total: product.reviews.total,
           }
         : undefined,
+      ai_insights: aiInsights,
     };
 
     return NextResponse.json(responseBody);

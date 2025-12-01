@@ -16,7 +16,7 @@ export default function ProductDetailClient() {
   const productId = typeof params.id === "string" ? params.id : null;
   const fromSearch = searchParams.get("q");
 
-  const { product, isLoading, error, notFound, refetch } =
+  const { product, aiInsights, isLoading, error, notFound, refetch } =
     useProductDetail(productId);
 
   const handleBack = () => {
@@ -109,7 +109,7 @@ export default function ProductDetailClient() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <ProductDetailView product={product} />
+              <ProductDetailView product={product} aiInsights={aiInsights} />
             </motion.div>
           )}
         </AnimatePresence>
