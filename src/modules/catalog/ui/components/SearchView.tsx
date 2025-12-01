@@ -1,6 +1,7 @@
 "use client";
 
-import { type FormEvent, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { useSearchProducts } from "@/modules/catalog/ui/hooks/useSearchProducts";
 import { ProductCard } from "./ProductCard";
 
@@ -56,15 +57,31 @@ const VALUE_PROPS = [
  * Smooth transitions between modes using CSS animations.
  */
 export function SearchView() {
-  const [inputValue, setInputValue] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+  const [inputValue, setInputValue] = useState(initialQuery);
   const { products, status, search, retry } = useSearchProducts();
   const resultsRef = useRef<HTMLDivElement>(null);
+  const hasInitialized = useRef(false);
+
+  // Initialize search from URL query param on mount
+  useEffect(() => {
+    if (initialQuery && !hasInitialized.current) {
+      hasInitialized.current = true;
+      search(initialQuery);
+    }
+  }, [initialQuery, search]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmed = inputValue.trim();
     if (!trimmed) return; // Stay in landing mode for empty submissions
+
+    // Update URL with search query
+    router.push(`/?q=${encodeURIComponent(trimmed)}`, { scroll: false });
     await search(trimmed);
+
     // Scroll to results area after a brief delay to let animation start
     setTimeout(() => {
       resultsRef.current?.scrollIntoView({
@@ -77,6 +94,8 @@ export function SearchView() {
   const handleClear = () => {
     setInputValue("");
     search("");
+    // Clear URL query param
+    router.push("/", { scroll: false });
     // Scroll to top when returning to landing
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

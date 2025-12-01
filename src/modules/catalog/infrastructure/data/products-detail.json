@@ -1,0 +1,414 @@
+{
+  "MLA123456789": {
+    "id": "MLA123456789",
+    "title": "Apple iPhone 13 (128 GB) - Medianoche",
+    "price": 1367999,
+    "original_price": 1499999,
+    "currency_id": "ARS",
+    "available_quantity": 15,
+    "sold_quantity": 234,
+    "condition": "new",
+    "permalink": "https://www.mercadolibre.com.ar/p/MLA123456789",
+    "thumbnail": "/products/iphone-13.webp",
+    "pictures": [
+      {
+        "id": "1",
+        "url": "/products/iphone-13.webp"
+      },
+      {
+        "id": "2",
+        "url": "/products/iphone-13.webp"
+      }
+    ],
+    "installments": {
+      "quantity": 12,
+      "amount": 113999.92,
+      "rate": 0,
+      "currency_id": "ARS"
+    },
+    "shipping": {
+      "free_shipping": true,
+      "mode": "me2",
+      "logistic_type": "fulfillment",
+      "store_pick_up": false
+    },
+    "seller_address": {
+      "city": {
+        "name": "Buenos Aires"
+      },
+      "state": {
+        "name": "Capital Federal"
+      }
+    },
+    "attributes": [
+      {
+        "id": "BRAND",
+        "name": "Marca",
+        "value_name": "Apple"
+      },
+      {
+        "id": "MODEL",
+        "name": "Modelo",
+        "value_name": "iPhone 13"
+      },
+      {
+        "id": "STORAGE_CAPACITY",
+        "name": "Capacidad de almacenamiento",
+        "value_name": "128 GB"
+      },
+      {
+        "id": "COLOR",
+        "name": "Color",
+        "value_name": "Medianoche"
+      }
+    ],
+    "warranty": "Garantía del vendedor: 12 meses",
+    "description": {
+      "plain_text": "iPhone 13. El sistema de dos cámaras más avanzado en un iPhone. El chip A15 Bionic a toda potencia. Un gran salto en duración de batería. Un diseño resistente. Y una pantalla Super Retina XDR más brillante."
+    },
+    "reviews": {
+      "rating_average": 4.9,
+      "total": 35
+    }
+  },
+  "MLA987654321": {
+    "id": "MLA987654321",
+    "title": "Apple iPhone 16 Pro Max 256gb",
+    "price": 2299000,
+    "original_price": 2599000,
+    "currency_id": "ARS",
+    "available_quantity": 8,
+    "sold_quantity": 45,
+    "condition": "new",
+    "permalink": "https://www.mercadolibre.com.ar/p/MLA987654321",
+    "thumbnail": "/products/iphone-16-pro-max.webp",
+    "pictures": [
+      {
+        "id": "1",
+        "url": "/products/iphone-16-pro-max.webp"
+      },
+      {
+        "id": "2",
+        "url": "/products/iphone-16-pro-max.webp"
+      }
+    ],
+    "installments": {
+      "quantity": 9,
+      "amount": 255444.44,
+      "rate": 0,
+      "currency_id": "ARS"
+    },
+    "shipping": {
+      "free_shipping": true,
+      "mode": "me2",
+      "logistic_type": "fulfillment",
+      "store_pick_up": true
+    },
+    "seller_address": {
+      "city": {
+        "name": "Córdoba"
+      },
+      "state": {
+        "name": "Córdoba"
+      }
+    },
+    "attributes": [
+      {
+        "id": "BRAND",
+        "name": "Marca",
+        "value_name": "Apple"
+      },
+      {
+        "id": "MODEL",
+        "name": "Modelo",
+        "value_name": "iPhone 16 Pro Max"
+      },
+      {
+        "id": "STORAGE_CAPACITY",
+        "name": "Capacidad de almacenamiento",
+        "value_name": "256 GB"
+      },
+      {
+        "id": "COLOR",
+        "name": "Color",
+        "value_name": "Titanio Negro"
+      }
+    ],
+    "warranty": "Garantía del vendedor: 12 meses",
+    "description": {
+      "plain_text": "iPhone 16 Pro Max. El iPhone más potente jamás creado. Con el chip A18 Pro, Control de Cámara, y el sistema de cámaras Pro más avanzado. Titanio de grado 5 y la pantalla más grande del iPhone."
+    },
+    "reviews": {
+      "rating_average": 5.0,
+      "total": 12
+    }
+  },
+  "MLA555555555": {
+    "id": "MLA555555555",
+    "title": "iPhone 8 64 GB Plata - Reacondicionado",
+    "price": 412500,
+    "currency_id": "ARS",
+    "available_quantity": 3,
+    "sold_quantity": 89,
+    "condition": "used",
+    "permalink": "https://www.mercadolibre.com.ar/p/MLA555555555",
+    "thumbnail": "/products/iphone-8-plata.webp",
+    "pictures": [
+      {
+        "id": "1",
+        "url": "/products/iphone-8-plata.webp"
+      }
+    ],
+    "shipping": {
+      "free_shipping": false,
+      "mode": "me1",
+      "logistic_type": "drop_off",
+      "store_pick_up": false
+    },
+    "seller_address": {
+      "city": {
+        "name": "Rosario"
+      },
+      "state": {
+        "name": "Santa Fe"
+      }
+    },
+    "attributes": [
+      {
+        "id": "BRAND",
+        "name": "Marca",
+        "value_name": "Apple"
+      },
+      {
+        "id": "MODEL",
+        "name": "Modelo",
+        "value_name": "iPhone 8"
+      },
+      {
+        "id": "STORAGE_CAPACITY",
+        "name": "Capacidad de almacenamiento",
+        "value_name": "64 GB"
+      },
+      {
+        "id": "COLOR",
+        "name": "Color",
+        "value_name": "Plata"
+      },
+      {
+        "id": "ITEM_CONDITION",
+        "name": "Condición",
+        "value_name": "Reacondicionado"
+      }
+    ],
+    "warranty": "Garantía del vendedor: 3 meses",
+    "description": {
+      "plain_text": "iPhone 8 reacondicionado en excelentes condiciones. Batería al 85% de capacidad. Sin marcas visibles. Incluye cargador genérico y cable USB."
+    },
+    "reviews": {
+      "rating_average": 5.0,
+      "total": 2
+    }
+  },
+  "MLA222222222": {
+    "id": "MLA222222222",
+    "title": "Apple iPhone 14 Plus 128 GB Azul",
+    "price": 1599999,
+    "original_price": 1799999,
+    "currency_id": "ARS",
+    "available_quantity": 12,
+    "sold_quantity": 156,
+    "condition": "new",
+    "permalink": "https://www.mercadolibre.com.ar/p/MLA222222222",
+    "thumbnail": "/products/iphone-14-plus-azul.webp",
+    "pictures": [
+      {
+        "id": "1",
+        "url": "/products/iphone-14-plus-azul.webp"
+      },
+      {
+        "id": "2",
+        "url": "/products/iphone-14-plus-azul.webp"
+      }
+    ],
+    "installments": {
+      "quantity": 6,
+      "amount": 283333.17,
+      "rate": 5.5,
+      "currency_id": "ARS"
+    },
+    "shipping": {
+      "free_shipping": false,
+      "mode": "me2",
+      "logistic_type": "cross_docking",
+      "store_pick_up": true
+    },
+    "seller_address": {
+      "city": {
+        "name": "La Plata"
+      },
+      "state": {
+        "name": "Buenos Aires"
+      }
+    },
+    "attributes": [
+      {
+        "id": "BRAND",
+        "name": "Marca",
+        "value_name": "Apple"
+      },
+      {
+        "id": "MODEL",
+        "name": "Modelo",
+        "value_name": "iPhone 14 Plus"
+      },
+      {
+        "id": "STORAGE_CAPACITY",
+        "name": "Capacidad de almacenamiento",
+        "value_name": "128 GB"
+      },
+      {
+        "id": "COLOR",
+        "name": "Color",
+        "value_name": "Azul"
+      }
+    ],
+    "warranty": "Garantía del vendedor: 12 meses",
+    "description": {
+      "plain_text": "iPhone 14 Plus con la pantalla más grande del iPhone 14. Chip A15 Bionic. Sistema de cámara dual de 12 MP. Detección de Choques y Emergencia SOS vía satélite."
+    },
+    "reviews": {
+      "rating_average": 4.7,
+      "total": 18
+    }
+  },
+  "MLA333333333": {
+    "id": "MLA333333333",
+    "title": "Apple iPhone SE (3ra generación) 64 GB Rojo",
+    "price": 799999,
+    "currency_id": "ARS",
+    "available_quantity": 20,
+    "sold_quantity": 312,
+    "condition": "new",
+    "permalink": "https://www.mercadolibre.com.ar/p/MLA333333333",
+    "thumbnail": "/products/iphone-se.webp",
+    "pictures": [
+      {
+        "id": "1",
+        "url": "/products/iphone-se.webp"
+      }
+    ],
+    "installments": {
+      "quantity": 12,
+      "amount": 66666.58,
+      "rate": 0,
+      "currency_id": "ARS"
+    },
+    "shipping": {
+      "free_shipping": true,
+      "mode": "me2",
+      "logistic_type": "fulfillment",
+      "store_pick_up": false
+    },
+    "seller_address": {
+      "city": {
+        "name": "Mendoza"
+      },
+      "state": {
+        "name": "Mendoza"
+      }
+    },
+    "attributes": [
+      {
+        "id": "BRAND",
+        "name": "Marca",
+        "value_name": "Apple"
+      },
+      {
+        "id": "MODEL",
+        "name": "Modelo",
+        "value_name": "iPhone SE (3ra generación)"
+      },
+      {
+        "id": "STORAGE_CAPACITY",
+        "name": "Capacidad de almacenamiento",
+        "value_name": "64 GB"
+      },
+      {
+        "id": "COLOR",
+        "name": "Color",
+        "value_name": "Rojo (PRODUCT)RED"
+      }
+    ],
+    "warranty": "Garantía del vendedor: 12 meses",
+    "description": {
+      "plain_text": "iPhone SE. El iPhone más accesible con el potente chip A15 Bionic. Diseño icónico con Touch ID. Cámara de 12 MP con Deep Fusion y modo Retrato."
+    }
+  },
+  "MLA444444444": {
+    "id": "MLA444444444",
+    "title": "iPhone 11 128 GB Negro - Usado",
+    "price": 689999,
+    "original_price": 799999,
+    "currency_id": "ARS",
+    "available_quantity": 1,
+    "sold_quantity": 1,
+    "condition": "used",
+    "permalink": "https://www.mercadolibre.com.ar/p/MLA444444444",
+    "thumbnail": "/products/iphone-11.webp",
+    "pictures": [
+      {
+        "id": "1",
+        "url": "/products/iphone-11.webp"
+      }
+    ],
+    "shipping": {
+      "free_shipping": false,
+      "mode": "me1",
+      "logistic_type": "drop_off",
+      "store_pick_up": false
+    },
+    "seller_address": {
+      "city": {
+        "name": "San Miguel de Tucumán"
+      },
+      "state": {
+        "name": "Tucumán"
+      }
+    },
+    "attributes": [
+      {
+        "id": "BRAND",
+        "name": "Marca",
+        "value_name": "Apple"
+      },
+      {
+        "id": "MODEL",
+        "name": "Modelo",
+        "value_name": "iPhone 11"
+      },
+      {
+        "id": "STORAGE_CAPACITY",
+        "name": "Capacidad de almacenamiento",
+        "value_name": "128 GB"
+      },
+      {
+        "id": "COLOR",
+        "name": "Color",
+        "value_name": "Negro"
+      },
+      {
+        "id": "ITEM_CONDITION",
+        "name": "Condición",
+        "value_name": "Usado - Muy bueno"
+      }
+    ],
+    "warranty": "Garantía del vendedor: 30 días",
+    "description": {
+      "plain_text": "iPhone 11 usado en muy buen estado. Batería al 82%. Pequeñas marcas de uso en los bordes. Funciona perfectamente. Incluye caja original y cargador."
+    },
+    "reviews": {
+      "rating_average": 4.5,
+      "total": 9
+    }
+  }
+}

@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-11-28
 
 ## Active Technologies
+- TypeScript 5.x, React 19, Next.js 16 (App Router) (002-product-detail)
+- Mock JSON data in `infrastructure/data/` (002-product-detail)
 
 - TypeScript on Next.js App Router (Node 18+) + Next.js, React, Tailwind CSS, Shadcn UI (Radix-based), Biome, Jest + Testing Library (001-catalog-search)
 
@@ -22,6 +24,7 @@ npm test && npm run lint
 TypeScript on Next.js App Router (Node 18+): Follow standard conventions
 
 ## Recent Changes
+- 002-product-detail: Added TypeScript 5.x, React 19, Next.js 16 (App Router)
 
 - 001-catalog-search: Added TypeScript on Next.js App Router (Node 18+) + Next.js, React, Tailwind CSS, Shadcn UI (Radix-based), Biome, Jest + Testing Library
 

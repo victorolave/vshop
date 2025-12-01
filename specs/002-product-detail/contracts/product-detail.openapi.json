@@ -1,0 +1,335 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "VShop Product Detail API",
+    "version": "1.0.0",
+    "description": "BFF endpoint for retrieving product details"
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "BFF API"
+    }
+  ],
+  "paths": {
+    "/products/{id}": {
+      "get": {
+        "operationId": "getProductDetail",
+        "summary": "Get product details by ID",
+        "description": "Returns complete product information for the detail view",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Product unique identifier (e.g., MLA998877665)",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}[0-9]+$",
+              "example": "MLA998877665"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid product ID format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_PRODUCT_ID",
+                    "message": "Product ID must match format MLA123456789"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PRODUCT_NOT_FOUND",
+                    "message": "Product with ID MLA999999999 was not found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "Unexpected error while retrieving product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProductDetail": {
+        "type": "object",
+        "required": ["id", "title", "price", "condition"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique product identifier",
+            "example": "MLA998877665"
+          },
+          "title": {
+            "type": "string",
+            "description": "Product display name",
+            "example": "Apple iPhone 16 Pro (256gb) - Nuevo - Liberado"
+          },
+          "price": {
+            "type": "number",
+            "description": "Current price",
+            "example": 2509380.59
+          },
+          "original_price": {
+            "type": "number",
+            "nullable": true,
+            "description": "Original price before discount",
+            "example": 3023244.99
+          },
+          "currency_id": {
+            "type": "string",
+            "description": "Currency code",
+            "example": "ARS"
+          },
+          "available_quantity": {
+            "type": "integer",
+            "description": "Stock available",
+            "example": 3
+          },
+          "sold_quantity": {
+            "type": "integer",
+            "description": "Units sold",
+            "example": 5
+          },
+          "condition": {
+            "type": "string",
+            "enum": ["new", "used"],
+            "description": "Product condition",
+            "example": "new"
+          },
+          "permalink": {
+            "type": "string",
+            "format": "uri",
+            "description": "Direct product URL",
+            "example": "https://www.mercadolibre.com.ar/p/MLA998877665"
+          },
+          "pictures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Picture"
+            }
+          },
+          "installments": {
+            "$ref": "#/components/schemas/Installments"
+          },
+          "shipping": {
+            "$ref": "#/components/schemas/Shipping"
+          },
+          "seller_address": {
+            "$ref": "#/components/schemas/SellerAddress"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAttribute"
+            }
+          },
+          "warranty": {
+            "type": "string",
+            "description": "Warranty description",
+            "example": "Garantía del vendedor: 3 meses"
+          },
+          "description": {
+            "$ref": "#/components/schemas/ProductDescription"
+          },
+          "reviews": {
+            "$ref": "#/components/schemas/Reviews"
+          }
+        }
+      },
+      "Picture": {
+        "type": "object",
+        "required": ["id", "url"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://http2.mlstatic.com/D987654-MLA0000000000__092023-I.jpg"
+          }
+        }
+      },
+      "ProductAttribute": {
+        "type": "object",
+        "required": ["id", "name", "value_name"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "BRAND"
+          },
+          "name": {
+            "type": "string",
+            "example": "Marca"
+          },
+          "value_name": {
+            "type": "string",
+            "example": "Apple"
+          }
+        }
+      },
+      "ProductDescription": {
+        "type": "object",
+        "properties": {
+          "plain_text": {
+            "type": "string",
+            "description": "Product description in plain text",
+            "example": "El iPhone 16 Pro viene con el sistema de cámaras más avanzado..."
+          }
+        }
+      },
+      "Installments": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "description": "Number of installments",
+            "example": 9
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount per installment",
+            "example": 278820.07
+          },
+          "rate": {
+            "type": "number",
+            "description": "Interest rate (0 = interest-free)",
+            "example": 0
+          },
+          "currency_id": {
+            "type": "string",
+            "example": "ARS"
+          }
+        }
+      },
+      "Shipping": {
+        "type": "object",
+        "properties": {
+          "free_shipping": {
+            "type": "boolean",
+            "example": true
+          },
+          "mode": {
+            "type": "string",
+            "example": "me2"
+          },
+          "logistic_type": {
+            "type": "string",
+            "example": "fulfillment"
+          },
+          "store_pick_up": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "SellerAddress": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "CABA"
+              }
+            }
+          },
+          "state": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Buenos Aires"
+              }
+            }
+          }
+        }
+      },
+      "Reviews": {
+        "type": "object",
+        "properties": {
+          "rating_average": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5,
+            "example": 5.0
+          },
+          "total": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": ["code", "message"],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code for programmatic handling",
+                "example": "PRODUCT_NOT_FOUND"
+              },
+              "message": {
+                "type": "string",
+                "description": "Human-readable error message",
+                "example": "Product with ID MLA999999999 was not found"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
