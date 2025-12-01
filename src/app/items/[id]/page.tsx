@@ -1,122 +1,110 @@
-"use client";
+import type { Metadata } from "next";
+import { GetProductDetail } from "@/modules/catalog/application/use-cases/GetProductDetail";
+import { MockProductRepository } from "@/modules/catalog/infrastructure/repositories/MockProductRepository";
+import ProductDetailClient from "./ProductDetailClient";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { ProductDetailError } from "@/modules/catalog/ui/components/ProductDetailError";
-import { ProductDetailSkeleton } from "@/modules/catalog/ui/components/ProductDetailSkeleton";
-import { ProductDetailView } from "@/modules/catalog/ui/components/ProductDetailView";
-import { ProductNotFound } from "@/modules/catalog/ui/components/ProductNotFound";
-import { useProductDetail } from "@/modules/catalog/ui/hooks/useProductDetail";
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
-export default function ProductDetailPage() {
-  const params = useParams();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const productId = typeof params.id === "string" ? params.id : null;
-  const fromSearch = searchParams.get("q");
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const repository = new MockProductRepository();
+  const getProductDetail = new GetProductDetail(repository);
 
-  const { product, isLoading, error, notFound, refetch } =
-    useProductDetail(productId);
+  try {
+    const product = await getProductDetail.execute(id);
 
-  const handleBack = () => {
-    if (fromSearch) {
-      router.push(`/?q=${encodeURIComponent(fromSearch)}`);
-    } else {
-      router.push("/");
+    if (!product) {
+      return {
+        title: "Producto no encontrado | VShop",
+        description: "El producto que buscas no existe en nuestro catálogo.",
+        robots: {
+          index: false,
+          follow: true,
+        },
+      };
     }
-  };
+
+    const description = product.description?.plainText
+      ? `${product.description.plainText.substring(0, 155)}...`
+      : `Compra ${product.title} por $ ${product.price.toLocaleString()} en VShop. Envíos a todo el país.`;
+
+    const images =
+      product.pictures?.map((p) => p.url) ||
+      (product.thumbnailUrl ? [product.thumbnailUrl] : []);
+
+    return {
+      title: product.title,
+      description,
+      openGraph: {
+        title: product.title,
+        description,
+        url: `/items/${id}`,
+        siteName: "VShop",
+        images: images.map((url) => ({
+          url,
+          alt: product.title,
+        })),
+        locale: "es_AR",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: product.title,
+        description,
+        images: images[0] ? [images[0]] : [],
+      },
+    };
+  } catch {
+    return {
+      title: "Error | VShop",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+}
+
+export default async function ProductDetailPage({ params }: Props) {
+  const { id } = await params;
+  const repository = new MockProductRepository();
+  const getProductDetail = new GetProductDetail(repository);
+  const product = await getProductDetail.execute(id);
+
+  const jsonLd = product
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: product.title,
+        image: product.pictures?.map((p) => p.url) || [product.thumbnailUrl],
+        description: product.description?.plainText || product.title,
+        sku: product.id,
+        offers: {
+          "@type": "Offer",
+          url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://vshop.com"}/items/${product.id}`,
+          priceCurrency: product.currencyId || "ARS",
+          price: product.price,
+          availability: "https://schema.org/InStock",
+          itemCondition:
+            product.condition === "new"
+              ? "https://schema.org/NewCondition"
+              : "https://schema.org/UsedCondition",
+        },
+      }
+    : null;
 
   return (
-    <div className="min-h-screen bg-neutral-950">
-      {/* Background overlay for transition effect */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="fixed inset-0 -z-10 bg-neutral-950"
-      />
-
-      <div className="container mx-auto px-4 py-6">
-        {/* Back Button */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-6"
-        >
-          <Button
-            variant="ghost"
-            onClick={handleBack}
-            className="gap-2 text-neutral-300 hover:bg-white/10 hover:text-white"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-            Volver
-          </Button>
-        </motion.div>
-
-        {/* Content with AnimatePresence for smooth transitions */}
-        <AnimatePresence mode="wait">
-          {isLoading && (
-            <motion.div
-              key="loading"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <ProductDetailSkeleton />
-            </motion.div>
-          )}
-
-          {notFound && (
-            <motion.div
-              key="not-found"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <ProductNotFound />
-            </motion.div>
-          )}
-
-          {error && (
-            <motion.div
-              key="error"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <ProductDetailError message={error} onRetry={refetch} />
-            </motion.div>
-          )}
-
-          {product && !isLoading && !error && !notFound && (
-            <motion.div
-              key="product"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <ProductDetailView product={product} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD injection is standard practice
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <ProductDetailClient />
+    </>
   );
 }
